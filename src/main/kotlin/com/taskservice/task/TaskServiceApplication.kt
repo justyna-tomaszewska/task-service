@@ -1,4 +1,4 @@
-package com.example.taskservice
+package com.taskservice.task
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
