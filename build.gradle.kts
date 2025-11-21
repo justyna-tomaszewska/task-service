@@ -18,8 +18,11 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.data:spring-data-mongodb:5.0.0")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("io.kotest:kotest-assertions-core:6.0.4")
-    testImplementation("io.kotest:kotest-framework-engine:6.0.0")
+    testImplementation("io.kotest:kotest-assertions-core:6.0.5")
+    testImplementation("io.kotest:kotest-framework-engine:6.0.5")
+    testImplementation("io.kotest:kotest-extensions-spring:6.0.5")
+    testImplementation("org.wiremock:wiremock:3.13.2")
 }
 

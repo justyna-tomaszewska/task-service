@@ -1,10 +1,12 @@
 package com.taskservice.api.task
 
+import com.taskservice.task.service.TaskService
 import io.kotest.core.spec.style.FunSpec
-import io.kotest.matchers.shouldBe
 
-class BaseSpec : FunSpec({
-    test("sample test") {
-        1 shouldBe 1
+abstract class BaseSpec(body: FunSpec.() -> Unit = {}) : FunSpec(body){
+    val taskRepository = TestTaskRepository()
+    val taskService = TaskService(taskRepository)
+    init {
+        assertSoftly = true
     }
-})
+}

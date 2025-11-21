@@ -11,7 +11,7 @@ class TaskService(
         return taskRepository.findById(id)
     }
 
-    fun saveTask(task: Task): String {
+    fun saveTask(task: Task): Task {
         return taskRepository.save(task)
     }
 }

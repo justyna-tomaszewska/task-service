@@ -1,10 +1,13 @@
 package com.taskservice.task.controller
 
+import com.taskservice.task.service.Task
 import com.taskservice.task.service.TaskService
 import org.springframework.http.MediaType.APPLICATION_JSON_VALUE
 import org.springframework.http.ResponseEntity
 import org.springframework.http.ResponseEntity.ok
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
@@ -20,5 +23,10 @@ class TaskController(
         @RequestParam("id") id: String,
     ): ResponseEntity<*> {
         return ok(TaskDTO.from(taskService.findTaskById(id)))
+    }
+
+    @PostMapping(consumes = [APPLICATION_JSON_VALUE])
+    fun createTask(@RequestBody payload: Task): ResponseEntity<*> {
+        return ok(taskService.saveTask(payload))
     }
 }
