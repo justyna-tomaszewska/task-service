@@ -1,0 +1,45 @@
+package com.taskservice.api.task.integration
+
+import com.taskservice.task.TaskServiceApplication
+import io.kotest.core.spec.style.FunSpec
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.boot.test.web.client.TestRestTemplate
+import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Primary
+import org.springframework.test.context.ActiveProfiles
+import io.kotest.extensions.spring.SpringExtension
+import org.springframework.data.mongodb.core.MongoOperations
+import org.springframework.data.mongodb.core.query.Query
+import org.springframework.test.context.ContextConfiguration
+import org.testcontainers.containers.MongoDBContainer
+
+@SpringBootTest(classes = [TaskServiceApplication::class], webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ActiveProfiles("test")
+@ContextConfiguration(initializers = [MongoDbInitializer::class])
+class BaseIntegrationTestSpec(body: FunSpec.() -> Unit = {}) : FunSpec(body) {
+
+    @Autowired
+    lateinit var restTemplate: TestRestTemplate
+
+    @Autowired
+    lateinit var mongoOperations: MongoOperations
+
+    val taskRest = TaskRestExtension()
+
+    init {
+        extensions(SpringExtension(), taskRest)
+        assertSoftly = true
+        beforeAny {
+            mongoOperations.collectionNames.forEach { collection -> mongoOperations.remove(Query(), collection) }
+        }
+    }
+
+
+    @Configuration
+    class TestConfig {
+
+        @Primary
+        fun rest(): TestRestTemplate = TestRestTemplate()
+    }
+}

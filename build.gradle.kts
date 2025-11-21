@@ -24,5 +24,7 @@ dependencies {
     testImplementation("io.kotest:kotest-framework-engine:6.0.5")
     testImplementation("io.kotest:kotest-extensions-spring:6.0.5")
     testImplementation("org.wiremock:wiremock:3.13.2")
+    testImplementation("com.h2database:h2")
+    testImplementation("org.testcontainers:mongodb:1.19.3")
 }
 
