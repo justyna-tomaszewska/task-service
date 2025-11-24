@@ -1,4 +1,4 @@
-package com.taskservice.api.task
+package com.taskservice.api.task.unit
 
 import com.taskservice.task.repository.TaskRepository
 import com.taskservice.task.service.Task

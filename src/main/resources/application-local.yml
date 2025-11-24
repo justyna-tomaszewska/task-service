@@ -1,0 +1,8 @@
+spring:
+  data:
+    mongodb: # cd docker/mongodb; docker-compose up
+      host: localhost
+      port: 27017
+      database: local-db
+      username: user
+      password: user

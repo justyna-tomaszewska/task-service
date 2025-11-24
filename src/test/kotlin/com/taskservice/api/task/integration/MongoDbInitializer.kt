@@ -3,6 +3,10 @@ package com.taskservice.api.task.integration
 import org.springframework.boot.test.util.TestPropertyValues
 import org.springframework.context.ApplicationContextInitializer
 import org.springframework.context.ConfigurableApplicationContext
+import org.springframework.data.mongodb.core.MongoTemplate
+import com.mongodb.client.MongoClients
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.mongodb.core.MongoOperations
 import org.testcontainers.containers.MongoDBContainer
 
 /**
@@ -13,7 +17,7 @@ import org.testcontainers.containers.MongoDBContainer
 class MongoDbInitializer : ApplicationContextInitializer<ConfigurableApplicationContext> {
 
     override fun initialize(applicationContext: ConfigurableApplicationContext) {
-        val mongoDBContainer = MongoDBContainer("mongo:7.0")
+        val mongoDBContainer = MongoDBContainer("mongo:6.0")
             .apply { start() }
 
         mongoDBContainer.start()
@@ -22,6 +26,5 @@ class MongoDbInitializer : ApplicationContextInitializer<ConfigurableApplication
             .applyTo(applicationContext)
         TestPropertyValues.of("scheduler.test.mongo.uri=${mongoDBContainer.connectionString}/test")
             .applyTo(applicationContext)
-
     }
 }
