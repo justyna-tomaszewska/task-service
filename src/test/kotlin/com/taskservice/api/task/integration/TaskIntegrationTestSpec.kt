@@ -1,10 +1,9 @@
 package com.taskservice.api.task.integration
 
+import com.taskservice.task.controller.TaskDTO
 import com.taskservice.task.service.Task
 import io.kotest.matchers.shouldBe
-import org.springframework.http.HttpEntity
 import org.springframework.http.HttpStatus.OK
-import org.springframework.http.ResponseEntity
 
 class TaskIntegrationTestSpec: BaseIntegrationTestSpec(){
     init{
@@ -16,14 +15,12 @@ class TaskIntegrationTestSpec: BaseIntegrationTestSpec(){
                 description = "Created via integration test",
                 status = "OPEN"
             )
-            val request = HttpEntity(task)
-
             // when: create the task
-            val createResponse = restTemplate.postForEntity("/tasks", task, ResponseEntity::class.java)
+            val createResponse = restTemplate.postForEntity("/tasks", task, Task::class.java)
             createResponse.statusCode shouldBe OK
 
             // when: retrieve the task
-            val getResponse = restTemplate.getForEntity("/tasks/1", Task::class.java)
+            val getResponse = restTemplate.getForEntity("/tasks/1", TaskDTO::class.java)
             getResponse.statusCode shouldBe OK
             getResponse.body?.name shouldBe "Integration Test Task"
             getResponse.body?.description shouldBe "Created via integration test"

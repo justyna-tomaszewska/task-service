@@ -6,7 +6,10 @@ import org.springframework.http.MediaType.APPLICATION_JSON_VALUE
 import org.springframework.http.ResponseEntity
 import org.springframework.http.ResponseEntity.ok
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PatchMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
@@ -18,15 +21,24 @@ class TaskController(
     val taskService: TaskService
 ) {
 
-    @GetMapping(produces = [APPLICATION_JSON_VALUE])
+    @GetMapping("{id}", produces = [APPLICATION_JSON_VALUE])
     fun findTaskById(
-        @RequestParam("id") id: String,
-    ): ResponseEntity<*> {
+        @PathVariable("id") id: String,
+    ): ResponseEntity<TaskDTO> {
         return ok(TaskDTO.from(taskService.findTaskById(id)))
     }
 
     @PostMapping(consumes = [APPLICATION_JSON_VALUE])
     fun createTask(@RequestBody payload: Task): ResponseEntity<*> {
         return ok(taskService.saveTask(payload))
+    }
+
+    @PatchMapping(consumes = [APPLICATION_JSON_VALUE])
+    fun updateTask(
+        @PathVariable("id") id: String,
+        @RequestBody payload: TaskUpdateRequest
+    ): ResponseEntity<Task> {
+        val updatedTask = taskService.updateTask(id, payload)
+        return ok(updatedTask)
     }
 }

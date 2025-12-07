@@ -28,10 +28,8 @@ class BaseIntegrationTestSpec(body: FunSpec.() -> Unit = {}) : FunSpec(body) {
     @Autowired
     lateinit var mongoOperations: MongoOperations
 
-    val taskRest = TaskRestExtension()
-
     init {
-        extensions(SpringExtension(), taskRest)
+        extensions(SpringExtension())
         assertSoftly = true
         beforeAny {
             mongoOperations.collectionNames.forEach { collection -> mongoOperations.remove(Query(), collection) }
