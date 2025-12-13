@@ -6,12 +6,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
 @Configuration
 class WebConfig(
-    private val jwtInterceptor: JwtInterceptor
+   private val jwtUtil: JwtUtil
 ) : WebMvcConfigurer {
 
-//    override fun addInterceptors(registry: InterceptorRegistry) {
-//        registry.addInterceptor(jwtInterceptor)
-//            .addPathPatterns("/tasks/**")
-//            .excludePathPatterns("/auth/**")
-//    }
+    override fun addInterceptors(registry: InterceptorRegistry) {
+        registry.addInterceptor(JwtInterceptor(jwtUtil))
+            .addPathPatterns("/tasks/*")
+    }
 }
