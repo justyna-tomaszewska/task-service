@@ -1,5 +1,6 @@
 package com.taskservice.security
 
+import org.slf4j.LoggerFactory
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
@@ -14,17 +15,22 @@ class CustomAuthenticationManager(
     private val passwordEncoder: PasswordEncoder
 ) : AuthenticationManager {
 
+    private val logger = LoggerFactory.getLogger(CustomAuthenticationManager::class.java)
+
     override fun authenticate(authenticaion: Authentication): Authentication {
+        logger.debug("Attempting to authenticate user: ${authenticaion.name}")
 
         val userDetails: UserDetails = userDetailsService.loadUserByUsername(authenticaion.name)
 
         if (passwordEncoder.matches(authenticaion.credentials.toString(), userDetails.password)) {
+            logger.info("Authentication successful for user: ${authenticaion.name}")
             return UsernamePasswordAuthenticationToken(
                 userDetails,
                 authenticaion.credentials,
                 userDetails.authorities
             )
         } else {
+            logger.warn("Authentication failed for user: ${authenticaion.name} - Invalid credentials")
             throw IllegalArgumentException("Invalid username or password")
         }
     }
