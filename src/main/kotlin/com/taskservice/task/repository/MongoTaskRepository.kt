@@ -2,6 +2,7 @@ package com.taskservice.task.repository
 
 import com.taskservice.task.controller.TaskUpdateRequest
 import com.taskservice.task.service.Task
+import org.springframework.context.annotation.Profile
 import org.springframework.data.mongodb.core.MongoOperations
 import org.springframework.data.mongodb.core.query.Criteria.where
 import org.springframework.data.mongodb.core.query.Query.query
@@ -10,6 +11,7 @@ import org.springframework.data.mongodb.core.query.isEqualTo
 import org.springframework.stereotype.Component
 
 @Component
+@Profile("mongo")
 internal class MongoTaskRepository(
     private val mongoOperations: MongoOperations
 ) : TaskRepository {

@@ -1,0 +1,83 @@
+### Task Service - Manual Testing Requests
+
+### Environment Configuration
+### Using local environment: http://localhost:8080/
+@baseUrl = http://localhost:8080
+@contentType = application/json
+
+### Create a new task
+POST {{baseUrl}}/tasks
+Content-Type: {{contentType}}
+
+{
+  "id": "task-001",
+  "name": "Implement authentication",
+  "description": "Add JWT-based authentication to the API",
+  "status": "TODO"
+}
+
+### Create another task
+POST {{baseUrl}}/tasks
+Content-Type: {{contentType}}
+
+{
+  "id": "task-002",
+  "name": "Setup database",
+  "description": "Configure MongoDB connection for production",
+  "status": "IN_PROGRESS"
+}
+
+### Create a third task
+POST {{baseUrl}}/tasks
+Content-Type: {{contentType}}
+
+{
+  "id": "task-003",
+  "name": "Write unit tests",
+  "description": "Add comprehensive test coverage for task service",
+  "status": "DONE"
+}
+
+### Get task by ID
+GET {{baseUrl}}/tasks/task-001
+Accept: {{contentType}}
+
+### Get another task
+GET {{baseUrl}}/tasks/task-002
+Accept: {{contentType}}
+
+### Update task - change status
+PATCH {{baseUrl}}/tasks/task-001
+Content-Type: {{contentType}}
+
+{
+  "status": "IN_PROGRESS"
+}
+
+### Update task - change name and description
+PATCH {{baseUrl}}/tasks/task-002
+Content-Type: {{contentType}}
+
+{
+  "name": "Setup database - UPDATED",
+  "description": "Configure MongoDB connection for both production and staging environments"
+}
+
+### Update task - complete task
+PATCH {{baseUrl}}/tasks/task-001
+Content-Type: {{contentType}}
+
+{
+  "name": "Implement authentication",
+  "description": "Add JWT-based authentication to the API - COMPLETED",
+  "status": "DONE"
+}
+
+### Update task - partial update (only status)
+PATCH {{baseUrl}}/tasks/task-003
+Content-Type: {{contentType}}
+
+{
+  "status": "ARCHIVED"
+}
+
