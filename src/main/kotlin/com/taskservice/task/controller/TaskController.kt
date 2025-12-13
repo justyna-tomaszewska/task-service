@@ -33,9 +33,9 @@ class TaskController(
         return ok(taskService.saveTask(payload))
     }
 
-    @PatchMapping(consumes = [APPLICATION_JSON_VALUE])
+    @PatchMapping("/{id}", consumes = [APPLICATION_JSON_VALUE])
     fun updateTask(
-        @PathVariable("id") id: String,
+        @PathVariable id: String,
         @RequestBody payload: TaskUpdateRequest
     ): ResponseEntity<Task> {
         val updatedTask = taskService.updateTask(id, payload)
