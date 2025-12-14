@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import java.util.logging.Logger
 
 @RestController
 @RequestMapping("/users")
@@ -28,6 +29,7 @@ class UserController(
 
     @PostMapping(consumes = [APPLICATION_JSON_VALUE])
     fun createUser(@RequestBody payload: User): ResponseEntity<*> {
+        logger.info("Saving new user")
         return ok(userService.saveUser(payload))
     }
 
@@ -38,6 +40,9 @@ class UserController(
     ): ResponseEntity<User> {
         val updatedUser = userService.updateUser(id, payload)
         return ok(updatedUser)
+    }
+    companion object {
+        private val logger = Logger.getLogger(UserController::class.java.name)
     }
 }
 

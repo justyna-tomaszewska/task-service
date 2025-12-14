@@ -1,36 +1,33 @@
 package com.taskservice.security
 
+import com.taskservice.user.repository.UserRepository
 import org.slf4j.LoggerFactory
-import org.springframework.security.authentication.AuthenticationManager
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
-import org.springframework.security.core.Authentication
-import org.springframework.security.core.userdetails.UserDetails
-import org.springframework.security.core.userdetails.UserDetailsService
-import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Component
 
 @Component
 class CustomAuthenticationManager(
-    private val userDetailsService: UserDetailsService,
-    private val passwordEncoder: PasswordEncoder
-) : AuthenticationManager {
+    private val userRepository: UserRepository,
+    private val passwordUtil: PasswordUtil
+) {
 
     private val logger = LoggerFactory.getLogger(CustomAuthenticationManager::class.java)
 
-    override fun authenticate(authenticaion: Authentication): Authentication {
-        logger.debug("Attempting to authenticate user: ${authenticaion.name}")
+    fun authenticate(username: String, password: String): Boolean {
+        logger.debug("Attempting to authenticate user: $username")
 
-        val userDetails: UserDetails = userDetailsService.loadUserByUsername(authenticaion.name)
+        val user = userRepository.findByUsername(username)
+            ?: run {
+                logger.warn("Authentication failed for user: $username - User not found")
+                throw IllegalArgumentException("Invalid username or password")
+            }
 
-        if (passwordEncoder.matches(authenticaion.credentials.toString(), userDetails.password)) {
-            logger.info("Authentication successful for user: ${authenticaion.name}")
-            return UsernamePasswordAuthenticationToken(
-                userDetails,
-                authenticaion.credentials,
-                userDetails.authorities
-            )
+        val isPasswordValid = passwordUtil.verifyPassword(password, user.password)
+
+        if (isPasswordValid) {
+            logger.info("Authentication successful for user: $username")
+            return true
         } else {
-            logger.warn("Authentication failed for user: ${authenticaion.name} - Invalid credentials")
+            logger.warn("Authentication failed for user: $username - Invalid credentials")
             throw IllegalArgumentException("Invalid username or password")
         }
     }

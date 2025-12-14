@@ -1,0 +1,121 @@
+### User Service - Manual Testing Requests
+
+### Environment Configuration
+### Using local environment: http://localhost:8080/
+@baseUrl = http://localhost:8080
+@contentType = application/json
+
+### Create a new user - Admin
+POST {{baseUrl}}/users
+Content-Type: {{contentType}}
+
+{
+  "id": "user-001",
+  "username": "admin",
+  "email": "admin@example.com",
+  "password": "hashed_password_123",
+  "role": "ADMIN"
+}
+
+### Create a new user - Regular User
+POST {{baseUrl}}/users
+Content-Type: {{contentType}}
+
+{
+  "id": "user-002",
+  "username": "johndoe",
+  "email": "john.doe@example.com",
+  "password": "hashed_password_456",
+  "role": "USER"
+}
+
+### Create a new user - Manager
+POST {{baseUrl}}/users
+Content-Type: {{contentType}}
+
+{
+  "id": "user-003",
+  "username": "janesmith",
+  "email": "jane.smith@example.com",
+  "password": "hashed_password_789",
+  "role": "MANAGER"
+}
+
+### Create a new user - Developer
+POST {{baseUrl}}/users
+Content-Type: {{contentType}}
+
+{
+  "id": "user-004",
+  "username": "bobwilson",
+  "email": "bob.wilson@example.com",
+  "password": "hashed_password_101",
+  "role": "DEVELOPER"
+}
+
+### Get user by ID - Admin
+GET {{baseUrl}}/users/user-001
+Accept: {{contentType}}
+
+### Get user by ID - Regular User
+GET {{baseUrl}}/users/user-002
+Accept: {{contentType}}
+
+### Get user by ID - Manager
+GET {{baseUrl}}/users/user-003
+Accept: {{contentType}}
+
+### Get user by ID - Developer
+GET {{baseUrl}}/users/user-004
+Accept: {{contentType}}
+
+### Update user - change username
+PATCH {{baseUrl}}/users/user-002
+Content-Type: {{contentType}}
+
+{
+  "username": "john_updated"
+}
+
+### Update user - change email
+PATCH {{baseUrl}}/users/user-002
+Content-Type: {{contentType}}
+
+{
+  "email": "john.new@example.com"
+}
+
+### Update user - change role
+PATCH {{baseUrl}}/users/user-002
+Content-Type: {{contentType}}
+
+{
+  "role": "MANAGER"
+}
+
+### Update user - change multiple fields
+PATCH {{baseUrl}}/users/user-003
+Content-Type: {{contentType}}
+
+{
+  "username": "jane_manager",
+  "email": "jane.manager@example.com",
+  "role": "SENIOR_MANAGER"
+}
+
+### Update user - change only username
+PATCH {{baseUrl}}/users/user-004
+Content-Type: {{contentType}}
+
+{
+  "username": "bob_dev"
+}
+
+### Update user - promote to admin
+PATCH {{baseUrl}}/users/user-004
+Content-Type: {{contentType}}
+
+{
+  "role": "ADMIN"
+}
+

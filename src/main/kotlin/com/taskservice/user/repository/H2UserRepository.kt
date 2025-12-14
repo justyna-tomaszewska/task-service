@@ -6,7 +6,9 @@ import org.springframework.context.annotation.Profile
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
-interface UserJpaRepository : JpaRepository<User, String>
+interface UserJpaRepository : JpaRepository<User, String> {
+    fun findByUsername(username: String): User?
+}
 
 @Repository
 @Profile("!mongo")
@@ -19,6 +21,10 @@ class H2UserRepository(
 
     override fun findById(id: String): User {
         return jpaRepository.findById(id).orElseThrow { NoSuchElementException("User not found") }
+    }
+
+    override fun findByUsername(username: String): User? {
+        return jpaRepository.findByUsername(username)
     }
 
     override fun update(

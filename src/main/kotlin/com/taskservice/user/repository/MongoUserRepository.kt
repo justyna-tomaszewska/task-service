@@ -25,6 +25,11 @@ internal class MongoUserRepository(
             ?: throw NoSuchElementException("User with id $id not found")
     }
 
+    override fun findByUsername(username: String): User? {
+        val mongoQuery = query(where("username").isEqualTo(username))
+        return mongoOperations.findOne(mongoQuery, User::class.java)
+    }
+
     override fun update(id: String, user: UserUpdateRequest): User {
         val mongoQuery = query(where("id").isEqualTo(id))
         val update = Update()

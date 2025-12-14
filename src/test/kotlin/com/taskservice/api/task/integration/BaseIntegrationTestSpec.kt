@@ -1,6 +1,6 @@
 package com.taskservice.api.task.integration
 
-import com.taskservice.task.TaskServiceApplication
+import com.taskservice.TaskServiceApplication
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.extensions.spring.SpringExtension
 import org.springframework.beans.factory.annotation.Autowired

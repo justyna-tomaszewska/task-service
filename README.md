@@ -35,14 +35,12 @@ The project specifically focuses on integrating and mastering the following core
 
 1.  **Build the Project:**
     ```bash
-    ./gradlew clean build 
-    # OR: ./mvnw clean install
+    ./gradlew clean build
     ```
 2.  **Run the Application:**
     The application is configured to use an in-memory **H2 database** by default for simplicity, making setup instantaneous.
     ```bash
     ./gradlew bootRun
-    # OR: java -jar build/libs/kotlin-tasks-api-0.0.1-SNAPSHOT.jar
     ```
     The API will start on `http://localhost:8080`.
 

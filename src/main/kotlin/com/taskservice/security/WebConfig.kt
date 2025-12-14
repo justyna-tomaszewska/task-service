@@ -10,8 +10,8 @@ class WebConfig(
 ) : WebMvcConfigurer {
 
     override fun addInterceptors(registry: InterceptorRegistry) {
-//        registry.addInterceptor(JwtInterceptor(jwtUtil))
-//            .addPathPatterns("/tasks/*")
-//            .excludePathPatterns("/users/**")
+        registry.addInterceptor(JwtInterceptor(jwtUtil))
+            .addPathPatterns("/tasks/*")
+            .excludePathPatterns("/users/**")
     }
 }
