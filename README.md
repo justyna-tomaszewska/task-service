@@ -9,7 +9,9 @@
 
 This repository contains a **RESTful API** for a microservice-based Task Management application.
 
-This project serves as a comprehensive development goal to achieve mastery in **Kotlin backend development**, focusing on building a robust, high-performance, and resilient API using modern techniques like distributed caching and idiomatic Spring integration.
+This project serves as a comprehensive development goal to achieve mastery in **Kotlin backend development**, focusing
+on building a robust, high-performance, and resilient API using modern techniques like distributed caching and idiomatic
+Spring integration.
 
 ## 🚀 Key Technologies
 
@@ -17,9 +19,11 @@ The project specifically focuses on integrating and mastering the following core
 
 * **Language:** **Kotlin** (Idiomatic syntax, leveraging its powerful features).
 * **Framework:** **Spring Boot 3** (Rapid application development and configuration).
-* **Request Handling:** **Spring Web** (Using **REST Controllers** and understanding the underlying **Servlet API** model).
+* **Request Handling:** **Spring Web** (Using **REST Controllers** and understanding the underlying **Servlet API**
+  model).
 * **Persistence:** **Spring Data JPA** (Efficient data modeling and interaction with a relational database).
-* **Distributed Caching:** **Hazelcast** integration for optimizing read performance and demonstrating **Cache-Aside** and **Read-Through** strategies.
+* **Distributed Caching:** **Hazelcast** integration for optimizing read performance and demonstrating **Cache-Aside**
+  and **Read-Through** strategies.
 * **Architecture:** Clean, layered architecture suitable for microservices.
 * **Security:** Basic user authentication and authorization.
 
@@ -33,16 +37,28 @@ The project specifically focuses on integrating and mastering the following core
 
 ### Steps
 
-1.  **Build the Project:**
-    ```bash
-    ./gradlew clean build
+1. **Build the Project:**
+   ```bash
+   ./gradlew clean build
+   ```
+   1.1
+   ```bash
+   ./gradlew clean build --refresh-dependencies
+    ```   
+   
+    1.2
+   ```bash
+   ./gradlew dependencies --configuration runtimeClasspath
+
     ```
-2.  **Run the Application:**
-    The application is configured to use an in-memory **H2 database** by default for simplicity, making setup instantaneous.
-    ```bash
-    ./gradlew bootRun
-    ```
-    The API will start on `http://localhost:8080`.
+
+2. **Run the Application:**
+   The application is configured to use an in-memory **H2 database** by default for simplicity, making setup
+   instantaneous.
+   ```bash
+   ./gradlew bootRun
+   ```
+   The API will start on `http://localhost:8080`.
 
 ## 📌 Core API Endpoints
 
@@ -58,16 +74,19 @@ All endpoints are protected and require a valid authentication token after user 
 
 ## 💡 Caching Strategy
 
-The application uses **Hazelcast** as its primary caching layer to demonstrate performance gains for frequently accessed data.
+The application uses **Hazelcast** as its primary caching layer to demonstrate performance gains for frequently accessed
+data.
 
-* **Single Task Retrieval (`GET /api/tasks/{id}`):** Implements a **Cache-Aside** strategy to minimize database lookups for individual tasks.
-* **Configuration:** Hazelcast is configured via Spring's `@EnableCaching` using an in-process, embedded configuration for development.
+* **Single Task Retrieval (`GET /api/tasks/{id}`):** Implements a **Cache-Aside** strategy to minimize database lookups
+  for individual tasks.
+* **Configuration:** Hazelcast is configured via Spring's `@EnableCaching` using an in-process, embedded configuration
+  for development.
 
 ## 🧑‍💻 Development Notes
 
 This project focused heavily on:
 
-1.  Writing **idiomatic Kotlin** over Java-style code.
-2.  Properly handling exceptions using **`@ControllerAdvice`** for clean API error responses.
-3.  Implementing robust **input validation** on DTOs.
-4.  Ensuring **unit and integration test coverage** for critical business logic.
+1. Writing **idiomatic Kotlin** over Java-style code.
+2. Properly handling exceptions using **`@ControllerAdvice`** for clean API error responses.
+3. Implementing robust **input validation** on DTOs.
+4. Ensuring **unit and integration test coverage** for critical business logic.

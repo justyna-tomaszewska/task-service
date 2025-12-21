@@ -23,6 +23,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.data:spring-data-mongodb:4.4.5")
+    implementation("com.hazelcast:hazelcast:5.5.0")
+    implementation("com.hazelcast:hazelcast-spring:5.5.0")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.boot:spring-boot-test")
     testImplementation("io.kotest:kotest-assertions-core:6.0.5")
